@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delayed click</title>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="leaflet.css" />
+    <script src="leaflet.js"></script>
+    <script src="../src/leaflet-clicks.js"></script>
+</head>
+<body>
+    <div id="map" style="width: 400px; height: 300px"></div>
+
+    <div id="log" style="border:1px solid black"></div>
+
+    <hr>
+
+    <a href='https://github.com/tkrajina/leaflet-editable-polyline/'>README</a>
+
+    <script>
+        "use strict";
+
+        var center = [45, 13.9];
+        var map = L.map('map').setView(center, 10);
+
+        var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        var osmAttrib='Map data © OpenStreetMap contributors';
+        L.tileLayer(osmUrl, {minZoom: 0, maxZoom: 15, attribution: osmAttrib}).addTo(map);
+
+        var marker = L.marker(center, {icon: new L.Icon.Default()}).addTo(map);
+
+        // Standard events:
+        marker.on('click', function(event) {
+            //document.getElementById('log').innerHTML += 'click happened<br/>';
+            return false;
+        });
+        marker.on('dblclick', function(event) {
+            //document.getElementById('log').innerHTML += 'dblclick happened<br/>';
+            return false;
+        });
+
+        // Delayed click (triggered only if no 'dblclick' is triggered in the meantime):
+        marker.on('delayedclick', function(event) {
+            document.getElementById('log').innerHTML += 'delayed happened<br/>';
+            return false;
+        });
+
+        // click2
+        marker.on('click2', function(event) {
+            document.getElementById('log').innerHTML += 'click with ' + event.clicks + ' clicks<br/>';
+            return false;
+        });
+    </script>
+</body>
+</html>
