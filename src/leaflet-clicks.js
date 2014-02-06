@@ -6,7 +6,7 @@ L.Click2InitHook = function () {
      * milliseconds od 800 milliseconds. We can only hope that 550 is a OK 
      * default value :)
      */
-    var TIMEOUT = 450;
+    var TIMEOUT = 300;
 
     if(!that.delayedClickTimeout)
         that.delayedClickTimeout = TIMEOUT;
